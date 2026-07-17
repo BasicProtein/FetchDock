@@ -204,7 +204,7 @@ export interface ReleaseDocumentSummaryResponse {
   missing_count: number;
   total_size_bytes: number;
   documents: ReleaseDocumentFileSummary[];
-  function_parity_status_counts: LocalCountEntry[];
+  capability_map_status_counts: LocalCountEntry[];
   acceptance_status_counts: LocalCountEntry[];
   review_notes: string[];
 }

@@ -12209,7 +12209,7 @@
       `documents: ${releaseDocumentSummary.document_count}`,
       `missing: ${releaseDocumentSummary.missing_count}`,
       `total size: ${formatBytes(releaseDocumentSummary.total_size_bytes)}`,
-      ...releaseDocumentSummary.function_parity_status_counts.map((entry) => `function parity ${entry.key}: ${entry.count}`),
+      ...releaseDocumentSummary.capability_map_status_counts.map((entry) => `capability map ${entry.key}: ${entry.count}`),
       ...releaseDocumentSummary.acceptance_status_counts.map((entry) => `acceptance ${entry.key}: ${entry.count}`),
       ...releaseDocumentSummary.review_notes.map((note) => `note: ${note}`)
     ];
@@ -12238,7 +12238,7 @@
             : releaseDocumentSummary
               ? [
                   ...releaseDocumentSummary.documents.map((document) => `${document.path}: ${document.exists ? "present" : "missing"}`),
-                  ...releaseDocumentSummary.function_parity_status_counts.map((entry) => `function parity ${entry.key}: ${entry.count}`),
+                  ...releaseDocumentSummary.capability_map_status_counts.map((entry) => `capability map ${entry.key}: ${entry.count}`),
                   ...releaseDocumentSummary.acceptance_status_counts.map((entry) => `acceptance ${entry.key}: ${entry.count}`)
                 ]
               : [];
@@ -52049,13 +52049,13 @@
             <div>
               <p class="eyebrow">Legal</p>
               <h2>Use and licensing notes</h2>
-              <p>FetchDock is a originality local desktop implementation. This page records the project boundaries that should stay visible before release.</p>
+              <p>FetchDock is a local desktop implementation written for FetchDock. This page records the project boundaries that should stay visible before release.</p>
             </div>
             <span class="plugin-state installed">local notice</span>
           </div>
           <div class="about-grid legal-summary-grid">
             <span>
-              <strong>Originality boundary</strong>
+              <strong>Source and asset boundary</strong>
               <small>Code, UI text, icons, docs, names, and visual assets in this repository must remain original to FetchDock.</small>
             </span>
             <span>
@@ -52483,8 +52483,8 @@
                     <small>missing</small>
                   </div>
                   <div>
-                    <strong>{releaseDocumentSummary.function_parity_status_counts.find((entry) => entry.key === "doing")?.count ?? 0}</strong>
-                    <small>parity doing</small>
+                    <strong>{releaseDocumentSummary.capability_map_status_counts.find((entry) => entry.key === "doing")?.count ?? 0}</strong>
+                    <small>map doing</small>
                   </div>
                   <div>
                     <strong>{releaseDocumentSummary.acceptance_status_counts.find((entry) => entry.key === "pending")?.count ?? 0}</strong>
@@ -52829,7 +52829,7 @@
           </span>
           <span>
             <strong>License stance</strong>
-            <small>Originality implementation. Original UI text, assets, and branding are required throughout this repository.</small>
+            <small>FetchDock keeps its own UI text, assets, and branding throughout this repository.</small>
           </span>
           <span>
             <strong>Privacy stance</strong>

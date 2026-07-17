@@ -7,22 +7,22 @@
   <a href="./README.ja.md">日本語</a>
 </p>
 
-**A local-first desktop downloader and study workspace for videos, courses, music, books, browser captures, and plugin workflows.**
+**動画、講座、音楽、書籍、ブラウザ取り込み、プラグインワークフローのためのローカル中心デスクトップダウンローダー兼学習ワークスペースです。**
 
-FetchDock is for people whose learning and media workflow is split across browser tabs, course platforms, chat channels, download folders, and command-line tools. It brings capture, queueing, metadata, local libraries, and review tools into one desktop app while keeping user data on the local machine by default.
+FetchDock は、学習素材やメディアワークフローがブラウザタブ、講座プラットフォーム、チャットチャンネル、ダウンロードフォルダ、コマンドラインツールに分かれている人のために作られています。取り込み、キュー、メタデータ、ローカルライブラリ、レビュー機能をひとつのデスクトップアプリにまとめ、ユーザーデータは既定でローカルマシンに置きます。
 
 > Status: FetchDock is in active development. The repository contains a working local desktop milestone, but some integrations, packaging gates, and real-service validation matrices are still pending.
 
 ## Why FetchDock
 
-Downloading is rarely just downloading.
+ダウンロードは、たいてい単なるダウンロードでは終わりません。
 
-- Links, cookies, filenames, subtitles, metadata, and output folders often end up managed in different tools.
-- yt-dlp, FFmpeg, and gallery-dl are powerful, but their options, dependencies, and logs are easier to trust when they are visible in one local workspace.
-- Courses, videos, PDFs, music, notes, and browser captures usually need organization after the file lands.
-- Private media workflows should not require uploading links, file paths, cookies, diagnostics, or learning history to a remote service.
+- リンク、Cookie、ファイル名、字幕、メタデータ、出力フォルダが別々のツールに分かれがちです。
+- yt-dlp、FFmpeg、gallery-dl は強力ですが、オプション、依存関係、ログがひとつのローカル作業環境で見えるほうが扱いやすくなります。
+- 講座、動画、PDF、音楽、ノート、ブラウザ取り込みは、ファイル保存後にも整理が必要です。
+- プライベートなメディアワークフローで、リンク、ファイルパス、Cookie、診断情報、学習履歴をリモートサービスに送る必要はありません。
 
-FetchDock aims to turn that scattered workflow into a local desktop control center.
+FetchDock は、散らばった流れをローカルのデスクトップ制御環境にまとめることを目指しています。
 
 ## Highlights
 
@@ -68,7 +68,6 @@ Requirements:
 - npm 11 or compatible npm.
 - Rust stable toolchain.
 - Tauri 2 prerequisites for your platform.
-- On Windows, Visual Studio Build Tools with the Visual C++ toolchain must provide `cl.exe`/`link.exe`; this workspace can also use the locally extracted Windows SDK path described in `docs/BUILD.md`.
 
 Fast feature-work checks:
 
@@ -82,33 +81,9 @@ npm run verify:project-boundary
 npm run verify:release-packaging
 ```
 
-Optional real-media smoke, kept out of the regular fast path:
-
-```powershell
-npm run verify:media-clip -- -FfmpegPath "E:\Software\FFMPEG\ffmpeg-master-latest-win64-gpl\bin\ffmpeg.exe"
-```
-
-Full Windows gate for final verification:
-
-```powershell
-npm run verify:windows -- -WindowsSdkRoot "E:\Data\Own\Entrepreneurship\FetchDock\build-tools\winsdk-26100-extract\Windows Kits\10"
-.\scripts\verify-windows.ps1 -WindowsSdkRoot "E:\Data\Own\Entrepreneurship\FetchDock\build-tools\winsdk-26100-extract\Windows Kits\10"
-```
-
-Portable package manifest check after a successful Windows build/staging:
-
-```powershell
-npm run package:windows-portable
-npm run verify:windows-portable
-```
-
-This validates the staged portable marker, data folders, manifest, SHA-256 rows, and byte counts. It is not a signing or runtime smoke substitute.
-
 ## Browser Extension
 
 The unpacked extension lives in `browser-extension/`.
-
-Local extension checks and review package:
 
 ```powershell
 npm run verify:browser-extension

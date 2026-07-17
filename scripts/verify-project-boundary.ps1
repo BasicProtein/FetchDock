@@ -1,4 +1,4 @@
-﻿param(
+param(
   [switch]$Json
 )
 
@@ -150,9 +150,9 @@ if ($Json) {
 } else {
   if ($hardMatches.Count -gt 0) {
     $hardMatches | Format-Table -AutoSize | Out-String | Write-Output
-    throw "Originality boundary guard found forbidden external project traces."
+    throw "Project boundary guard found forbidden external project traces."
   }
 
-  Write-Output "Originality boundary guard passed: $filesScanned files scanned, $($reviewMatches.Count) review-only wording matches"
+  Write-Output "Project boundary guard passed: $filesScanned files scanned, $($reviewMatches.Count) review-only wording matches"
   Write-Output $result.note
 }

@@ -2,11 +2,11 @@
 
 状态：draft
 阶段：第一阶段规格盘点
-约束：原创实现边界。本文只定义 FetchDock 自有架构，不复制外部产品源码、资产、文案、品牌或界面细节。
+约束：自写实现边界。本文只定义 FetchDock 自有架构，不复制第三方项目源码、资产、文案、品牌或界面细节。
 
 ## 目标
 
-FetchDock 是跨平台桌面应用，用一个本地优先的架构覆盖下载、课程、阅读、音乐、Telegram、浏览器扩展、Cookie、依赖管理、插件市场和发布质量能力。第一版架构优先满足目标能力矩阵、可维护、可恢复、可验证，不引入公开目标能力之外的新产品能力。
+FetchDock 是跨平台桌面应用，用一个本地优先的架构覆盖下载、课程、阅读、音乐、Telegram、浏览器扩展、Cookie、依赖管理、插件市场和发布质量能力。第一版架构优先满足目标能力矩阵、可维护、可恢复、可验证，不引入已列入能力之外的新产品能力。
 
 ## 技术选型
 
@@ -470,7 +470,7 @@ data/
 
 ## 模块实现顺序
 
-1. 完成规格文档：功能盘点、架构、API 合约、验收清单。
+1. 完成规格文档：能力地图、架构、API 合约、验收清单。
 2. 搭建最小 Tauri 应用壳和路径服务。
 3. 建立 SQLite schema、settings、事件总线。
 4. 实现下载队列数据模型和状态机。
@@ -481,4 +481,4 @@ data/
 9. 实现阅读、音乐、学习辅助、浏览器扩展。
 10. 完成发布、自动更新、诊断、法务与构建文档。
 
-每个模块完成后必须同步更新 [FUNCTION_PARITY.md](/e:/Data/Own/Entrepreneurship/FetchDock/docs/FUNCTION_PARITY.md) 和 [ACCEPTANCE.md](/e:/Data/Own/Entrepreneurship/FetchDock/docs/ACCEPTANCE.md)。
+每个模块完成后必须同步更新 [CAPABILITY_MAP.md](/e:/Data/Own/Entrepreneurship/FetchDock/docs/CAPABILITY_MAP.md) 和 [ACCEPTANCE.md](/e:/Data/Own/Entrepreneurship/FetchDock/docs/ACCEPTANCE.md)。

@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "fetchdock",
   "version": "0.1.0",
   "private": true,
@@ -15,7 +15,7 @@
     "package:windows-portable": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-windows-portable.ps1",
     "verify:windows-portable": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-windows-portable.ps1",
     "verify:release-packaging": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-release-packaging.ps1",
-    "verify:originality": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-originality-boundary.ps1",
+    "verify:project-boundary": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-project-boundary.ps1",
     "verify:browser-extension": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-browser-extension.ps1",
     "verify:media-clip": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-media-clip.ps1",
     "package:browser-extension": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-browser-extension.ps1 -Package"

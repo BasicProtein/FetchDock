@@ -1,4 +1,4 @@
-﻿import { navItems, type RouteId } from "./navigation";
+import { navItems, type RouteId } from "./navigation";
 import { translate } from "./i18n";
 
 export interface CommandAction {
@@ -44,7 +44,7 @@ const routeKeywords: Partial<Record<RouteId, string>> = {
   telegram: "telegram auth chats channels drawer search media clone wizard transfer manifest mtproto placeholder state backup state export state import export-telegram-state import-telegram-state telegram-state-export telegram-state-import save local save filtered save chat save results copy local media copy-telegram-media telegram-copy-media save-telegram-media telegram capability catalog telegram-capability-catalog export-telegram-capability-catalog copy telegram capabilities copy telegram commands copy telegram surfaces copy telegram limits",
   settings: "settings search preferences configuration defaults sections options",
   plugins: "plugin marketplace manifest abi commands events settings data dir permissions capabilities trust preflight logs",
-  legal: "legal originality license privacy release checklist release capability catalog packaging capability catalog diagnostics capability catalog recovery capability catalog legal capability catalog notice capability catalog legal-capability-catalog export-legal-capability-catalog copy legal capability catalog copy legal catalog json copy legal capabilities copy legal commands copy legal surfaces copy legal limits third-party notices package summary evidence",
+  legal: "legal source asset boundary license privacy release checklist release capability catalog packaging capability catalog diagnostics capability catalog recovery capability catalog legal capability catalog notice capability catalog legal-capability-catalog export-legal-capability-catalog copy legal capability catalog copy legal catalog json copy legal capabilities copy legal commands copy legal surfaces copy legal limits third-party notices package summary evidence",
   about: "about version runtime mode data root build status privacy legal"
 };
 

@@ -30,7 +30,7 @@ During fast implementation passes, prefer the light checks below and save the fu
 npm run verify:fast
 ```
 
-The fast preflight runs typecheck, Rust fmt check, browser-extension static verification, release packaging static guard, originality boundary guard, conflict-marker scan, and CRLF escape literal scan. It does not run frontend tests, Rust tests, clippy, Tauri build, package signing, installer smoke, or browser E2E.
+The fast preflight runs typecheck, Rust fmt check, browser-extension static verification, release packaging static guard, project boundary guard, conflict-marker scan, and CRLF escape literal scan. It does not run frontend tests, Rust tests, clippy, Tauri build, package signing, installer smoke, or browser E2E.
 
 Individual light checks:
 
@@ -40,7 +40,7 @@ node --check browser-extension/shared/background.js
 node --check browser-extension/popup/popup.js
 node --check browser-extension/options/options.js
 npm run verify:release-packaging
-npm run verify:originality
+npm run verify:project-boundary
 ```
 
 Local release package metadata can be reviewed without running the full packaging gate:
@@ -58,7 +58,7 @@ These read local release gates, release-document metadata, missing final legal f
 
 `npm run verify:release-packaging` is a fast static guard for release helper consistency. It checks that the Windows portable package/verify scripts agree on required marker files, manifest fields, checksum/byte validation, and portable data directories, and that the Flatpak/macOS packaging templates plus npm scripts are still wired. It does not run Tauri build, create packages, sign, notarize, install, launch, or smoke-test artifacts.
 
-`npm run verify:originality` scans tracked source, docs, scripts, extension, and packaging text outside generated/build directories for hard external project traces. Hard matches fail the guard; review-only boundary language is counted so it can be pruned or reworded before a public release.
+`npm run verify:project-boundary` scans tracked source, docs, scripts, extension, and packaging text outside generated/build directories for hard external project traces. Hard matches fail the guard; review-only boundary language is counted so it can be pruned or reworded before a public release.
 
 Local dependency notice metadata can be reviewed without exporting a notice file:
 

@@ -1,4 +1,4 @@
-﻿param(
+param(
   [switch]$SkipTypecheck,
   [switch]$SkipRustFmt,
   [switch]$FixRustFmt,
@@ -122,10 +122,10 @@ Invoke-Step -Name "release packaging static guard" -Script {
   }
 }
 
-Invoke-Step -Name "originality boundary guard" -Script {
-  & npm run verify:originality
+Invoke-Step -Name "project boundary guard" -Script {
+  & npm run verify:project-boundary
   if ($LASTEXITCODE -ne 0) {
-    throw "npm run verify:originality failed with exit code $LASTEXITCODE."
+    throw "npm run verify:project-boundary failed with exit code $LASTEXITCODE."
   }
 }
 

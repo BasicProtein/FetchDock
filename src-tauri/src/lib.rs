@@ -1,4 +1,4 @@
-﻿use chrono::Utc;
+use chrono::Utc;
 use native_tls::TlsConnector;
 use rusqlite::{params, Connection};
 use serde::{Deserialize, Serialize};
@@ -2653,7 +2653,7 @@ struct ReleaseDocumentSummaryResponse {
     missing_count: usize,
     total_size_bytes: u64,
     documents: Vec<ReleaseDocumentFileSummary>,
-    function_parity_status_counts: Vec<LocalCountEntry>,
+    capability_map_status_counts: Vec<LocalCountEntry>,
     acceptance_status_counts: Vec<LocalCountEntry>,
     review_notes: Vec<String>,
 }
@@ -9403,7 +9403,7 @@ fn build_release_checklist_at_root(root: &Path) -> Result<ReleaseChecklistRespon
     let gates = vec![
         release_gate(
             "clean_room",
-            "Originality source boundary",
+            "Source and asset boundary",
             "ready",
             "Legal page and docs state that FetchDock code, UI text, assets, and branding must stay original.",
             "Keep future feature work on behavior and public capability boundaries, not copied implementation or expression.",
@@ -9439,7 +9439,7 @@ fn build_release_checklist_at_root(root: &Path) -> Result<ReleaseChecklistRespon
             "capability_honesty",
             "Capability honesty",
             "ready",
-            "Function parity and acceptance docs keep classifier-only, local manifest, and blocked/pending integrations visible.",
+            "Capability map and acceptance docs keep classifier-only, local manifest, and blocked/pending integrations visible.",
             "Keep real-site, MTProto, torrent/P2P, plugin host, updater, signing, and packaging gaps marked pending until verified.",
         ),
         release_gate(
@@ -9636,7 +9636,7 @@ fn build_release_capability_catalog_at_root(root: &Path) -> ReleaseCapabilityCat
             &["app_get_release_document_summary", "app_export_release_document_summary"],
             &["release-docs-summary", "release-documents", "export-release-docs-summary"],
             &["Settings > Advanced release docs summary", "Legal page"],
-            &["README.md", "docs/CHANGELOG.md", "docs/FUNCTION_PARITY.md", "docs/API_CONTRACTS.md", "docs/ACCEPTANCE.md", "diagnostics/release-docs-summary-*.json"],
+            &["README.md", "docs/CHANGELOG.md", "docs/CAPABILITY_MAP.md", "docs/API_CONTRACTS.md", "docs/ACCEPTANCE.md", "diagnostics/release-docs-summary-*.json"],
             &["path", "exists", "size_bytes", "modified_at", "sha256"],
             &["local document path", "sha256"],
             true,
@@ -9684,7 +9684,7 @@ fn build_release_capability_catalog_at_root(root: &Path) -> ReleaseCapabilityCat
             false,
             false,
             true,
-            "Collects local dependency and legal-readiness metadata for originality release review.",
+            "Collects local dependency and legal-readiness metadata for release boundary review.",
             &["Human legal review is still required; summaries do not grant license clearance or verify bundled third-party binaries."],
         ),
         release_capability_catalog_item(
@@ -11103,8 +11103,8 @@ fn build_release_evidence_snapshot_payload(
             &RELEASE_DOCUMENT_PATHS.iter().map(|(_, path)| *path).collect::<Vec<_>>()
         ),
         "status_counts": {
-            "function_parity": markdown_status_counts(
-                &source_root.join("docs").join("FUNCTION_PARITY.md"),
+            "capability_map": markdown_status_counts(
+                &source_root.join("docs").join("CAPABILITY_MAP.md"),
                 &["todo", "doing", "done", "blocked"]
             ),
             "acceptance": markdown_status_counts(
@@ -11614,7 +11614,7 @@ fn export_legal_capability_catalog_at_root(
 
 const RELEASE_DOCUMENT_PATHS: &[(&str, &str)] = &[
     ("readme", "README.md"),
-    ("function_parity", "docs/FUNCTION_PARITY.md"),
+    ("capability_map", "docs/CAPABILITY_MAP.md"),
     ("architecture", "docs/ARCHITECTURE.md"),
     ("api_contracts", "docs/API_CONTRACTS.md"),
     ("acceptance", "docs/ACCEPTANCE.md"),
@@ -11635,7 +11635,7 @@ const RELEASE_DOCUMENT_PATHS: &[(&str, &str)] = &[
     ),
     (
         "clean_room_verify",
-        "scripts/verify-originality-boundary.ps1",
+        "scripts/verify-project-boundary.ps1",
     ),
     (
         "flatpak_manifest",
@@ -11682,8 +11682,8 @@ fn build_release_document_summary() -> Result<ReleaseDocumentSummaryResponse, St
         .iter()
         .filter_map(|document| document.size_bytes)
         .sum();
-    let function_parity_status_counts = markdown_status_count_entries(
-        &source_root.join("docs").join("FUNCTION_PARITY.md"),
+    let capability_map_status_counts = markdown_status_count_entries(
+        &source_root.join("docs").join("CAPABILITY_MAP.md"),
         &["todo", "doing", "done", "blocked"],
     );
     let acceptance_status_counts = markdown_status_count_entries(
@@ -11699,7 +11699,7 @@ fn build_release_document_summary() -> Result<ReleaseDocumentSummaryResponse, St
         missing_count,
         total_size_bytes,
         documents,
-        function_parity_status_counts,
+        capability_map_status_counts,
         acceptance_status_counts,
         review_notes: vec![
             "This summary reads release documentation and script metadata only.".to_string(),
@@ -11732,7 +11732,7 @@ fn export_release_document_summary_at_root(
             .iter()
             .any(|entry| matches!(entry.key.as_str(), "pending" | "fail" | "blocked"))
         || summary
-            .function_parity_status_counts
+            .capability_map_status_counts
             .iter()
             .any(|entry| matches!(entry.key.as_str(), "todo" | "doing" | "blocked"));
     fs::write(
@@ -11863,7 +11863,7 @@ fn release_package_key_files(root: &Path) -> Result<Vec<ReleasePackageFileSummar
         ),
         (
             "script",
-            root.join("scripts").join("verify-originality-boundary.ps1"),
+            root.join("scripts").join("verify-project-boundary.ps1"),
         ),
         ("script", root.join("scripts").join("verify-fast.ps1")),
         ("script", root.join("scripts").join("verify-windows.ps1")),
@@ -26773,8 +26773,8 @@ fn cli_release_document_summary(args: Vec<String>, options: &CliOptions) -> Resu
     let summary = build_release_document_summary()?;
     let payload = serde_json::to_value(&summary).map_err(|error| error.to_string())?;
     cli_print_json_or_human(options, &payload, || {
-        let function_parity = summary
-            .function_parity_status_counts
+        let capability_map = summary
+            .capability_map_status_counts
             .iter()
             .map(|entry| format!("{}:{}", entry.key, entry.count))
             .collect::<Vec<_>>()
@@ -26786,12 +26786,12 @@ fn cli_release_document_summary(args: Vec<String>, options: &CliOptions) -> Resu
             .collect::<Vec<_>>()
             .join(", ");
         format!(
-            "Release documentation summary\nSource: {}\nDocuments: {} (missing: {}, {} bytes)\nFunction parity: {}\nAcceptance: {}\nNote: local metadata only; final docs review, packaging smoke, signing, and license clearance remain separate.",
+            "Release documentation summary\nSource: {}\nDocuments: {} (missing: {}, {} bytes)\nCapability map: {}\nAcceptance: {}\nNote: local metadata only; final docs review, packaging smoke, signing, and license clearance remain separate.",
             summary.source_root,
             summary.document_count,
             summary.missing_count,
             summary.total_size_bytes,
-            function_parity,
+            capability_map,
             acceptance
         )
     })?;

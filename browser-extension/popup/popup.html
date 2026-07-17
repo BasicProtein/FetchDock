@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FetchDock Connector</title>
+    <link rel="stylesheet" href="../shared/extension.css" />
+  </head>
+  <body class="popup-shell">
+    <main>
+      <header>
+        <strong>FetchDock</strong>
+        <span id="status">Ready</span>
+      </header>
+      <section class="url-card">
+        <small>Current page</small>
+        <p id="page-title">Loading page</p>
+        <code id="page-url"></code>
+      </section>
+      <button id="copy-page-summary" class="secondary" type="button">Copy page summary</button>
+      <section class="media-card">
+        <div class="section-head">
+          <div class="section-title">
+            <strong>Detected media</strong>
+            <span id="media-summary">0 shown</span>
+          </div>
+          <div class="inline-links">
+            <button id="send-media-shown" class="link-button" type="button" disabled>Send shown</button>
+            <button id="copy-media-shown" class="link-button" type="button" disabled>Copy URLs</button>
+            <button id="copy-media-details" class="link-button" type="button" disabled>Copy details</button>
+            <button id="copy-media-json" class="link-button" type="button" disabled>Copy JSON</button>
+            <button id="clear-media-shown" class="link-button" type="button" disabled>Clear shown</button>
+            <button id="clear-media" class="link-button" type="button">Clear</button>
+          </div>
+        </div>
+        <label class="compact-select-row">
+          <span>Kind</span>
+          <select id="media-kind-filter" aria-label="Detected media kind filter">
+            <option value="all">All media</option>
+          </select>
+        </label>
+        <div id="media-list" class="media-list empty">No media requests yet.</div>
+      </section>
+      <button id="send-page" type="button">Send page</button>
+      <button id="capture-cookies" class="secondary" type="button">Capture cookies</button>
+      <button id="capture-auth" class="secondary" type="button">Capture auth header</button>
+      <button id="check-bridge" class="secondary" type="button">Check bridge</button>
+      <button id="open-options" class="secondary" type="button">Settings</button>
+      <p id="message" role="status"></p>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

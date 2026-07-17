@@ -1,0 +1,26 @@
+app-id: dev.fetchdock.desktop
+runtime: org.freedesktop.Platform
+runtime-version: "24.08"
+sdk: org.freedesktop.Sdk
+command: fetchdock
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=xdg-download
+modules:
+  - name: fetchdock
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 fetchdock /app/bin/fetchdock
+      - install -Dm644 dev.fetchdock.desktop.desktop /app/share/applications/dev.fetchdock.desktop.desktop
+      - install -Dm644 dev.fetchdock.desktop.metainfo.xml /app/share/metainfo/dev.fetchdock.desktop.metainfo.xml
+    sources:
+      - type: file
+        path: fetchdock
+      - type: file
+        path: dev.fetchdock.desktop.desktop
+      - type: file
+        path: dev.fetchdock.desktop.metainfo.xml

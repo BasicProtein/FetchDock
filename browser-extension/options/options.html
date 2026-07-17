@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FetchDock Connector Settings</title>
+    <link rel="stylesheet" href="../shared/extension.css" />
+  </head>
+  <body class="page-shell">
+    <main class="settings-page">
+      <header>
+        <div>
+          <strong>FetchDock Connector</strong>
+          <span>Browser extension settings</span>
+        </div>
+      </header>
+      <label>
+        <span>Local bridge URL</span>
+        <input id="bridge-url" spellcheck="false" placeholder="http://127.0.0.1:17654" />
+        <small>When this port is unavailable, the connector probes the discovery ports on localhost.</small>
+      </label>
+      <label>
+        <span>Bridge discovery ports</span>
+        <input id="bridge-discovery-ports" spellcheck="false" placeholder="17654,17655,17656" />
+        <small>Accepts comma-separated or newline-separated local bridge ports.</small>
+      </label>
+      <label>
+        <span>Pairing token</span>
+        <input id="pairing-token" spellcheck="false" placeholder="Paste the token from FetchDock settings" />
+      </label>
+      <label class="check-row">
+        <input id="deep-link" type="checkbox" />
+        <span>Use desktop link fallback when the local bridge is unavailable</span>
+      </label>
+      <label class="check-row">
+        <input id="media-sniffer" type="checkbox" />
+        <span>Detect media requests on pages</span>
+      </label>
+      <label class="check-row">
+        <input id="header-capture" type="checkbox" />
+        <span>Capture Referer/User-Agent hints and secret-header presence</span>
+      </label>
+      <label>
+        <span>Blocked hosts</span>
+        <textarea id="blocked-hosts" spellcheck="false" placeholder="analytics.example.com&#10;cdn.example.net"></textarea>
+        <small>Accepts one host per line, comma-separated hosts, a JSON array, or {"blockedHosts":[...]}.</small>
+      </label>
+      <label>
+        <span>Desktop connector profile</span>
+        <textarea id="connector-profile" spellcheck="false" placeholder="{&quot;bridgeBaseUrl&quot;:&quot;http://127.0.0.1:17654&quot;,&quot;pairingToken&quot;:&quot;...&quot;}"></textarea>
+        <small>Paste the profile JSON from FetchDock Settings to fill bridge, token, fallback, capture, and blocked-host options.</small>
+      </label>
+      <div class="actions">
+        <button id="save" type="button">Save</button>
+        <button id="check-bridge" class="secondary" type="button">Check bridge</button>
+        <button id="copy-summary" class="secondary" type="button">Copy summary</button>
+        <button id="copy-json" class="secondary" type="button">Copy JSON</button>
+        <button id="import-profile" class="secondary" type="button">Import profile</button>
+        <button id="reset" class="secondary" type="button">Reset</button>
+      </div>
+      <p id="message" role="status"></p>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

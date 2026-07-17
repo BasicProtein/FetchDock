@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=FetchDock
+Comment=Local-first desktop download manager
+Exec=fetchdock
+Icon=dev.fetchdock.desktop
+Terminal=false
+Categories=Network;Utility;

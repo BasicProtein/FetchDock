@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>dev.fetchdock.desktop</id>
+  <name>FetchDock</name>
+  <summary>Local-first desktop download manager</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Proprietary</project_license>
+  <description>
+    <p>FetchDock manages local download tasks, tool dependencies, browser handoff, and plugin manifests.</p>
+  </description>
+  <launchable type="desktop-id">dev.fetchdock.desktop.desktop</launchable>
+  <releases>
+    <release version="0.1.0" date="2026-07-13" />
+  </releases>
+</component>

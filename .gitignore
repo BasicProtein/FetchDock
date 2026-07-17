@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-extension/
+dist-portable/
+src-tauri/target/
+src-tauri/gen/
+build-logs/
+build-tools/
+*.log
+.DS_Store
+Thumbs.db
+data/
+*.local
+.gstack/
+src-tauri/-version

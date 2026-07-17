@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "FetchDock Connector",
+  "description": "Send pages, links, and detected media to the FetchDock desktop app.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "Send to FetchDock",
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "shared/background.js",
+    "type": "module"
+  },
+  "options_page": "options/options.html",
+  "permissions": ["activeTab", "contextMenus", "storage", "tabs", "webRequest"],
+  "host_permissions": ["<all_urls>"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "connector@fetchdock.local",
+      "strict_min_version": "109.0"
+    }
+  }
+}
